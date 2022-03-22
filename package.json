@@ -1,0 +1,12 @@
+{
+  "name": "binance-fetcher",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "anzip": "^0.2.0",
+    "axios": "^0.26.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1"
+  }
+}
