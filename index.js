@@ -8,25 +8,20 @@ const { promisify } = require('util');
 const { finished } = require('stream');
 
 const PAIR = 'BTCUSDT';
-const PERIOD = '1h';
+const PERIOD = '1m';
 const SAVE_DIR = 'data';
 const TMP_DIR = 'tmp';
-const YEARS = 3;
+const YEARS = 1;
 const URL = ({ month, year }) => `https://data.binance.vision/data/spot/monthly/klines/${PAIR}/${PERIOD}/${PAIR}-${PERIOD}-${year}-${month}.zip`;
 const RESULT_FILE = `${PAIR}-${PERIOD}.csv`;
 
 async function fetch() {
-  const now = moment();
-  const currentYear = now.year();
-  const currentMonth = now.month();
-  const urls = _.range(YEARS).reverse().flatMap((i) => {
-    const year = currentYear - i;
-    const maxMonths = currentYear === year ? currentMonth : 12;
-    return _.range(maxMonths).map((j) => {
-      const month = moment().year(year).month(j).format('MM');
-      const url = URL({ year, month });
-      return url;
-    });
+  const end = moment().startOf('month');
+  const start = moment(end).subtract(YEARS, 'year');
+  const urls = _.range(end.diff(start, 'month')).reverse().map((i) => {
+    const date = moment(end).subtract(i + 1, 'month');
+    const url = URL({ year: date.format('YYYY'), month: date.format('MM') });
+    return url;
   });
 
   const results = await Promise.all(urls.map((url) => axios.get(url, { responseType: 'stream' })));
