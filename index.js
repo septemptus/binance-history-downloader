@@ -8,7 +8,7 @@ const anzip = require('anzip');
 const { promisify } = require('util');
 const { finished } = require('stream');
 
-const { PAIR, PERIOD, YEARS } = process.env;
+const { PAIR, PERIOD, MONTHS } = process.env;
 const SAVE_DIR = 'data';
 const TMP_DIR = 'tmp';
 const URL = ({ month, year }) => `https://data.binance.vision/data/spot/monthly/klines/${PAIR}/${PERIOD}/${PAIR}-${PERIOD}-${year}-${month}.zip`;
@@ -16,7 +16,7 @@ const RESULT_FILE = `${PAIR}-${PERIOD}.csv`;
 
 async function fetch() {
   const end = moment().startOf('month');
-  const start = moment(end).subtract(YEARS, 'year');
+  const start = moment(end).subtract(MONTHS, 'months');
   const urls = _.range(end.diff(start, 'month')).reverse().map((i) => {
     const date = moment(end).subtract(i + 1, 'month');
     const url = URL({ year: date.format('YYYY'), month: date.format('MM') });
