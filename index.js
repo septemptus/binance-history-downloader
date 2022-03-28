@@ -1,3 +1,4 @@
+require('dotenv').config();
 const moment = require('moment');
 const axios = require('axios');
 const _ = require('lodash');
@@ -7,11 +8,9 @@ const anzip = require('anzip');
 const { promisify } = require('util');
 const { finished } = require('stream');
 
-const PAIR = 'BTCUSDT';
-const PERIOD = '1m';
+const { PAIR, PERIOD, YEARS } = process.env;
 const SAVE_DIR = 'data';
 const TMP_DIR = 'tmp';
-const YEARS = 1;
 const URL = ({ month, year }) => `https://data.binance.vision/data/spot/monthly/klines/${PAIR}/${PERIOD}/${PAIR}-${PERIOD}-${year}-${month}.zip`;
 const RESULT_FILE = `${PAIR}-${PERIOD}.csv`;
 
