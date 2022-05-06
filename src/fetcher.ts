@@ -53,11 +53,16 @@ export async function getBinanceData(
 ): Promise<Buffer> {
   try {
     const start = moment(startDate).startOf('month');
-    const end = moment(endDate).add(1, 'month').startOf('month');
-    const urls = range(end.diff(start, 'month'))
+    const end = moment(endDate).startOf('month');
+
+    if (end.isBefore(start)) {
+      throw new Error('End date is set before start date');
+    }
+
+    const urls = range(end.diff(start, 'month') + 1)
       .reverse()
       .map((i) => {
-        const date = moment(end).subtract(i + 1, 'month');
+        const date = moment(end).subtract(i, 'month');
         const url = `${URL_BASE}${currencyPair}/${period}/${currencyPair}-${period}-${date.format(
           'YYYY'
         )}-${date.format('MM')}.zip`;
