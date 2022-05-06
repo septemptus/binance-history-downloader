@@ -15,11 +15,11 @@ beforeEach(() => {
 
 test('should create a write stream in current cwd for given filename', async () => {
   const cwd = process.cwd();
-  await save('test.csv', Buffer.from('1'));
+  await save('test.csv', '1');
   expect(fs.createWriteStream).toHaveBeenCalledWith(`${cwd}/test.csv`);
 });
 
 test('should write on the stream', async () => {
-  await save('test.csv', Buffer.from('1'));
-  expect(writeMock).toHaveBeenCalledWith(Buffer.from('1'));
+  await save('test.csv', '1');
+  expect(writeMock).toHaveBeenCalledWith('1');
 });

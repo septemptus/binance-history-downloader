@@ -1,4 +1,4 @@
-import getBinanceData from '../src';
+import { getRawBinanceData } from '../src/fetcher';
 import { query } from '../src/inquirer';
 import { run } from '../src/runner';
 import { save } from '../src/saver';
@@ -26,7 +26,7 @@ test('should query', async () => {
 
 test('should get raw data', async () => {
   await run();
-  expect(getBinanceData).toHaveBeenCalled();
+  expect(getRawBinanceData).toHaveBeenCalled();
 });
 
 test('should save the fetched data', async () => {

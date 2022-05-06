@@ -15,8 +15,8 @@ export type KlineData = {
   ignore: boolean;
 };
 
-export async function parse(data: Buffer): Promise<KlineData[]> {
-  const csv = (await csvParse(data.toString())) as string[][];
+export async function parse(data: string): Promise<KlineData[]> {
+  const csv = (await csvParse(data)) as string[][];
   return csv.map((csvRow) => ({
     openTime: Number(csvRow[0]),
     open: Number(csvRow[1]),

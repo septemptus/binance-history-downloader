@@ -1,7 +1,6 @@
 import axios from 'axios';
 import yauzl from 'yauzl';
-import getBinanceData from '../src';
-import { getParsedBinanceData } from '../src/fetcher';
+import { getBinanceData } from '../src/fetcher';
 import { parse } from '../src/parser';
 
 jest.mock('axios');
@@ -60,7 +59,7 @@ test('should unzip the contents', async () => {
 });
 
 test('should call parse on data', async () => {
-  await getParsedBinanceData('BTCUSDT', '1m', new Date('2020-01-01'), new Date('2020-02-01'));
+  await getBinanceData('BTCUSDT', '1m', new Date('2020-01-01'), new Date('2020-02-01'));
   expect(parse).toHaveBeenCalled();
 });
 

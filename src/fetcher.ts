@@ -45,12 +45,12 @@ const unzip = (buffer: Buffer) =>
     });
   });
 
-export async function getBinanceData(
+export async function getRawBinanceData(
   currencyPair: string,
   period: KlinePeriod,
   startDate: Date,
   endDate: Date
-): Promise<Buffer> {
+): Promise<string> {
   try {
     const start = moment(startDate).startOf('month');
     const end = moment(endDate).startOf('month');
@@ -72,7 +72,7 @@ export async function getBinanceData(
       urls.map((url) => axios.get(url, { responseType: 'arraybuffer' }))
     );
     const unzipped = Buffer.concat(await Promise.all(results.map((r) => unzip(r.data))));
-    return unzipped;
+    return unzipped.toString();
   } catch (e) {
     if (axios.isAxiosError(e) && e.response?.status === 404) {
       throw new Error(`Could not find historical data for URL: ${e.config.url}`);
@@ -81,12 +81,12 @@ export async function getBinanceData(
   }
 }
 
-export async function getParsedBinanceData(
+export async function getBinanceData(
   currencyPair: string,
   period: KlinePeriod,
   startDate: Date,
   endDate: Date
 ): Promise<KlineData[]> {
-  const data = await getBinanceData(currencyPair, period, startDate, endDate);
+  const data = await getRawBinanceData(currencyPair, period, startDate, endDate);
   return parse(data);
 }

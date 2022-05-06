@@ -24,12 +24,12 @@ beforeEach(() => {
 });
 
 test('should call csv parse on the given data', async () => {
-  await parse(Buffer.from('1'));
+  await parse('1');
   expect(csvParse).toHaveBeenCalled();
 });
 
 test('should parse the csv entries as expected', async () => {
-  const result = await parse(Buffer.from('1'));
+  const result = await parse('1');
   expect(result).toEqual([
     {
       openTime: 1601510340000,
