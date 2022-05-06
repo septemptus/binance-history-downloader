@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import process from 'process';
 import { finished } from 'stream/promises';
 
 export async function save(fileName: string, data: Buffer): Promise<void> {
