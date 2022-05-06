@@ -12,7 +12,7 @@ export type RequestParams = {
 
 export async function query(): Promise<RequestParams> {
   const input = await prompt<RequestParams>([
-    { type: 'input', name: 'currencyPair', message: 'What currency pair to fetch?' },
+    { type: 'input', name: 'currencyPair', message: 'What currency pair to fetch? (e.g. BTCUSDT)' },
     {
       type: 'select',
       name: 'period',

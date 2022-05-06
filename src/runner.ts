@@ -1,11 +1,11 @@
+import { getBinanceData } from './fetcher';
 import { query } from './inquirer';
 import { save } from './saver';
-import { fetch } from './fetcher';
 
 export async function run(): Promise<void> {
   try {
     const queryResult = await query();
-    const data = await fetch(
+    const data = await getBinanceData(
       queryResult.currencyPair,
       queryResult.period,
       queryResult.startDate,

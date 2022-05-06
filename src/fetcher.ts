@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import range from 'lodash/range';
 import moment from 'moment';
 import yauzl from 'yauzl';
+import { parse } from './parser';
 
 const URL_BASE = 'https://data.binance.vision/data/spot/monthly/klines/';
 
@@ -44,7 +45,7 @@ const unzip = (buffer: Buffer) =>
     });
   });
 
-export async function fetch(
+export async function getBinanceData(
   currencyPair: string,
   period: KlinePeriod,
   startDate: Date,
@@ -73,4 +74,14 @@ export async function fetch(
     }
     throw e;
   }
+}
+
+export async function getParsedBinanceData(
+  currencyPair: string,
+  period: KlinePeriod,
+  startDate: Date,
+  endDate: Date
+): Promise<string[][]> {
+  const data = await getBinanceData(currencyPair, period, startDate, endDate);
+  return parse(data);
 }
