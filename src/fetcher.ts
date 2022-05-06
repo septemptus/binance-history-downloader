@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import range from 'lodash/range';
 import moment from 'moment';
 import yauzl from 'yauzl';
-import { parse } from './parser';
+import { KlineData, parse } from './parser';
 
 const URL_BASE = 'https://data.binance.vision/data/spot/monthly/klines/';
 
@@ -86,7 +86,7 @@ export async function getParsedBinanceData(
   period: KlinePeriod,
   startDate: Date,
   endDate: Date
-): Promise<string[][]> {
+): Promise<KlineData[]> {
   const data = await getBinanceData(currencyPair, period, startDate, endDate);
   return parse(data);
 }
