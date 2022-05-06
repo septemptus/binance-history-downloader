@@ -4,3 +4,4 @@ TODO
 - Examples
 - Documentation
 - Hook up NP
+- Badges + CI

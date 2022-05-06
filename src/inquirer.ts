@@ -2,6 +2,8 @@ import { prompt } from 'enquirer';
 import moment from 'moment';
 import { KlinePeriod } from './fetcher';
 
+const DATE_FORMAT = 'YYYY-MM';
+
 export type RequestParams = {
   currencyPair: string;
   period: KlinePeriod;
@@ -38,14 +40,14 @@ export async function query(): Promise<RequestParams> {
     {
       type: 'input',
       name: 'startDate',
-      message: 'What should be the start month? (YYYY-MM)',
-      validate: (value) => moment(value, 'YYYY-MM').isValid(),
+      message: `What should be the start month? (${DATE_FORMAT})`,
+      validate: (value) => moment(value, DATE_FORMAT).isValid(),
     },
     {
       type: 'input',
       name: 'endDate',
-      message: 'What should be the end month? (YYYY-MM)',
-      validate: (value) => moment(value, 'YYYY-MM').isValid(),
+      message: `What should be the end month? (${DATE_FORMAT})`,
+      validate: (value) => moment(value, DATE_FORMAT).isValid(),
     },
     {
       type: 'input',
@@ -56,7 +58,7 @@ export async function query(): Promise<RequestParams> {
   ]);
   return {
     ...input,
-    startDate: moment(input.startDate, 'YYYY-MM').toDate(),
-    endDate: moment(input.endDate, 'YYYY-MM').toDate(),
+    startDate: moment(input.startDate, DATE_FORMAT).toDate(),
+    endDate: moment(input.endDate, DATE_FORMAT).toDate(),
   };
 }
