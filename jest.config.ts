@@ -5,5 +5,6 @@ const config: Config.InitialOptions = {
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
   },
+  testPathIgnorePatterns: ['dist'],
 };
 export default config;
