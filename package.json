@@ -1,6 +1,6 @@
 {
   "name": "binance-history-downloader",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "dist/cjs/src/index.js",
   "module": "dist/mjs/src/index.js",
   "exports": {
@@ -22,7 +22,7 @@
     "moment": "^2.29.1",
     "yauzl": "^2.10.0"
   },
-  "bin": "dist/cjs/index.js",
+  "bin": "dist/cjs/src/index.js",
   "scripts": {
     "build": "rm -rf dist/ && tsc -p tsconfig.json && tsc -p tsconfig.cjs.json",
     "test": "jest"
